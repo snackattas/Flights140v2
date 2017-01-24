@@ -1,0 +1,4 @@
+{% extends 'base.html' %}
+{% block login_or_logout %}
+ <a href="{% url 'logout' %}?next=/" class="item individual" id="Logout">Logout</a>
+{% endblock %}
