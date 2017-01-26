@@ -8,7 +8,7 @@ import time
 from django.test import LiveServerTestCase
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
-
+from django.core import mail
 DEFAULT_WAIT = 5
 
 class TestClass(LiveServerTestCase):
@@ -95,3 +95,15 @@ class TestClass(LiveServerTestCase):
         logout_button = self.log_out_button()
         logout_button.click()
         self.login_buttons()
+
+    def test_passwordless_login_in_memory(self):
+        self.browser.get(self.live_server_url)
+        self.wait_for(
+            lambda: self.browser.find_element_by_id("Passwordless").\
+                    send_keys("sally@gmail.com"))
+        self.browser.find_element_by_id("PasswordlessButton").click()
+        time.sleep(.5)
+        email = mail.outbox[0]
+        # self.assertIn(test_email, email.to)
+        # self.assertEqual(email.subject, subject)
+        # return email.body

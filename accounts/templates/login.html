@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block login_or_logout %}
+ <div id="LoginButtons">
+  <a href="{% url 'social:begin' 'facebook' %}?next={% url 'loggedin' %}" class="btn btn-block btn-social btn-facebook" id="Facebook">
+   <span class="fa fa-facebook"></span>Facebook</a>
+
+  <a href="{% url 'social:begin' 'google-oauth2' %}?next={% url 'loggedin' %}" class="btn btn-block btn-social btn-google" id="Google">
+   <span class="fa fa-google"></span>Google</a>
+
+  <a href="{% url 'social:begin' 'twitter' %}?next={% url 'loggedin' %}" class="btn btn-block btn-social btn-twitter" id="Twitter">
+   <span class="fa fa-twitter"></span>Twitter</a>
+  <a href="{% url 'social:begin' backend='email' %}">Login with Email</a>
+ </div>
+
+ {% if messages %}
+ {%for message in messages %}
+  {% if forloop.first %}
+   {{message|safe}}
+   {% endif %}
+{% endfor %}
+ {% endif %}
+{% endblock %}
